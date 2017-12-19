@@ -14,15 +14,25 @@ public class Player : MonoBehaviour
 
     //Spaceship features
     private float speed = 12f;
-    private int durability = 3; //number of "lifes"
+    public int durability = 3; //number of "lifes"
+    public int invunerabilityTime = 3;
+
 
     //Spaceship size to ajust to the edges of the screen
     private float shipBoundaryY = 0.5f;
     private float shipBoundaryX = 0.5f;
 
+    //Variables for the blinking effect after the spaceship taking damage
+    private SpriteRenderer mySpriteRenderer;
+    public float flashSpeed = 0.2f;
+    private PolygonCollider2D collPlayer;
+
+
     void Start ()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>(); //Getting the reference for the rigidbody
+        collPlayer = GetComponent<PolygonCollider2D>(); 
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
 
         InvokeRepeating("BasicShoot", shootStart, shootTime); //Calls the BasicShoot function that instatiate the bullets each instant
     }
@@ -65,7 +75,36 @@ public class Player : MonoBehaviour
 
     void BasicShoot()
     {
-        Instantiate(bullet, new Vector3(transform.position.x, transform.position.y + 0.6f), Quaternion.identity);
+        Instantiate(bullet, new Vector3(transform.position.x, transform.position.y + 0.65f), Quaternion.identity);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyShot"))
+        {
+            Destroy(other.gameObject); //The collided object is destroyed 
+            durability--; //The spaceship loses one point of durability
+
+            StartCoroutine(Flash(flashSpeed, invunerabilityTime)); //Spaceship flashes by a specified speed and duration
+        }
+    }
+
+    IEnumerator Flash(float flash, int duration)
+    {
+        int counter = 0;
+        collPlayer.enabled = false;
+
+        while (counter < duration)
+        {
+            counter++;
+            mySpriteRenderer.enabled = false;
+            yield return new WaitForSeconds(flash);
+
+            mySpriteRenderer.enabled = true;
+            yield return new WaitForSeconds(flash);
+        }
+
+        collPlayer.enabled = true;
     }
 
 }
