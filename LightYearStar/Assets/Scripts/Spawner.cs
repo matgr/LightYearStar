@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
 
+    public bool stage0 = true;
     public bool stage1 = false;
     public bool stage2 = false;
     public bool stage3 = false;
@@ -36,7 +37,32 @@ public class Spawner : MonoBehaviour {
     
     void AddBasicEnemy()
     {
-        Instantiate(enemy, new Vector2(Random.Range(sizeX-0.5f, -sizeX+0.5f), sizeY+0.6f), Quaternion.identity);
+        if((stage0)||(stage1))
+        { 
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+
+        }
+        if(stage2)
+        {
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+        }
+        if(stage3)
+        {
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+        }
+        if(stage4)
+        {
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+            Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
+        }
+            
     }      
 
     // Update is called once per frame
@@ -45,25 +71,25 @@ public class Spawner : MonoBehaviour {
         distance = Time.deltaTime + distance;
         if ((distance > 20)&&(stage1==false))
         {
-            spawnTime = spawnTime - 0.2f;
+            spawnTime = spawnTime - 0.1f;
             stage1 = true;
         }
         else
             if ((distance > 50) && (stage2 == false))
         {
-            spawnTime = spawnTime - 0.3f;
+            spawnTime = spawnTime - 0.1f;
             stage2 = true;
         }
         else
             if ((distance > 70) && (stage3 == false))
         {
-            spawnTime = spawnTime - 0.5f;
+            spawnTime = spawnTime - 0.1f;
             stage3 = true;
         }
         else
             if ((distance > 100) && (stage4 == false))
         {
-            spawnTime = spawnTime - 0.5f;
+            spawnTime = spawnTime - 0.1f;
             stage4 = true;
         }
     }
