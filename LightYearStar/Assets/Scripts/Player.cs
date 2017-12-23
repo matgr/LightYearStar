@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
+    public int coinCount;
 
     //Bullet features
     public GameObject bullet;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
 
     void Start ()
     {
+        coinCount = 0;
         rb = GetComponent<Rigidbody2D>(); //Getting the reference for the rigidbody
         collPlayer = GetComponent<PolygonCollider2D>(); 
         mySpriteRenderer = GetComponent<SpriteRenderer>();
@@ -86,6 +88,11 @@ public class Player : MonoBehaviour
             durability--; //The spaceship loses one point of durability
 
             StartCoroutine(Flash(flashSpeed, invunerabilityTime)); //Spaceship flashes by a specified speed and duration
+        }
+        if(other.gameObject.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+            coinCount++;             
         }
     }
 
