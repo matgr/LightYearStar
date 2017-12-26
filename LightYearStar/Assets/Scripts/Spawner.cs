@@ -37,7 +37,7 @@ public class Spawner : MonoBehaviour {
             float posY = sizeY + 0.6f;
 
             float choice = Random.Range(1, 10);
-            Debug.Log(choice);
+            
             if (choice<5)
                 coinNine(posX, posY);
             else
@@ -49,6 +49,7 @@ public class Spawner : MonoBehaviour {
 
     void coinNine(float posX, float posY)
     {
+        posY = posY + 10;
         Instantiate(coin, new Vector2(posX, posY), Quaternion.identity);
         Instantiate(coin, new Vector2(posX + 0.8f, posY), Quaternion.identity);
         Instantiate(coin, new Vector2(posX - 0.8f, posY), Quaternion.identity);
@@ -62,6 +63,7 @@ public class Spawner : MonoBehaviour {
     
     void coinTwelve(float posX, float posY)
     {
+        posY = posY + 10f;
         Instantiate(coin, new Vector2(posX, posY), Quaternion.identity);
         Instantiate(coin, new Vector2(posX + 0.8f, posY), Quaternion.identity);
         Instantiate(coin, new Vector2(posX, posY - 0.8f), Quaternion.identity);

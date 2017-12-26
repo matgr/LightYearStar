@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
     public int coinCount;
+    public Text coinQuant;
 
     //Bullet features
     public GameObject bullet;
@@ -92,7 +94,8 @@ public class Player : MonoBehaviour
         if(other.gameObject.CompareTag("Coin"))
         {
             Destroy(other.gameObject);
-            coinCount++;             
+            coinCount++;
+            coinQuant.text = coinCount.ToString();     
         }
     }
 
