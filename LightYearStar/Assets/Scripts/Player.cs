@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
 
     //Spaceship features
+    public bool isHit = false;
     private float speed = 12f;
     public int durability = 3; //number of "lifes"
     public int invunerabilityTime = 3;
@@ -84,13 +85,17 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyShot"))
+        if (!isHit)
         {
-            Destroy(other.gameObject); //The collided object is destroyed 
-            durability--; //The spaceship loses one point of durability
-
-            StartCoroutine(Flash(flashSpeed, invunerabilityTime)); //Spaceship flashes by a specified speed and duration
+            if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyShot"))
+            {
+                Destroy(other.gameObject); //The collided object is destroyed 
+                durability--; //The spaceship loses one point of durability
+                isHit = true;
+                StartCoroutine(Flash(flashSpeed, invunerabilityTime)); //Spaceship flashes by a specified speed and duration
+            }
         }
+        
         if(other.gameObject.CompareTag("Coin"))
         {
             Destroy(other.gameObject);
@@ -102,7 +107,7 @@ public class Player : MonoBehaviour
     IEnumerator Flash(float flash, int duration)
     {
         int counter = 0;
-        collPlayer.enabled = false;
+        //collPlayer.enabled = false;
 
         while (counter < duration)
         {
@@ -113,8 +118,8 @@ public class Player : MonoBehaviour
             mySpriteRenderer.enabled = true;
             yield return new WaitForSeconds(flash);
         }
-
-        collPlayer.enabled = true;
+        isHit = false;
+        //collPlayer.enabled = true;
     }
 
 }
