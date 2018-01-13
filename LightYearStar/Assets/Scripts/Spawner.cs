@@ -36,48 +36,33 @@ public class Spawner : MonoBehaviour {
             float posX = Random.Range(sizeX - 0.5f, -sizeX + 0.5f);
             float posY = sizeY + 0.6f;
 
-            float choice = Random.Range(1, 10);
+            int xVal = Random.Range(1, 6);
+            int yVal = Random.Range(1, 6);
             
-            if (choice<5)
-                coinNine(posX, posY);
-            else
-                coinTwelve(posX, posY);
+            coinSpawn(posX, posY, xVal, yVal); //Spawns into random x,y positions and random values between 1 and 5
             
         }
         
     }
 
-    void coinNine(float posX, float posY)
+    void coinSpawn(float posX, float posY, int quantX, int quantY)
     {
         posY = posY + 10;
-        Instantiate(coin, new Vector2(posX, posY), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX + 0.8f, posY), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX - 0.8f, posY), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX, posY - 0.8f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX + 0.8f, posY - 0.8f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX - 0.8f, posY - 0.8f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX, posY - 1.6f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX + 0.8f, posY - 1.6f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX - 0.8f, posY - 1.6f), Quaternion.identity);
-    }
-    
-    void coinTwelve(float posX, float posY)
-    {
-        posY = posY + 10f;
-        Instantiate(coin, new Vector2(posX, posY), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX + 0.8f, posY), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX, posY - 0.8f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX + 0.8f, posY - 0.8f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX, posY - 1.6f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX + 0.8f, posY - 1.6f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX, posY - 2.4f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX + 0.8f, posY - 2.4f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX, posY - 3.2f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX + 0.8f, posY - 3.2f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX, posY - 4f), Quaternion.identity);
-        Instantiate(coin, new Vector2(posX + 0.8f, posY - 4f), Quaternion.identity);
-    }
+        float incX = 0f;
+        float incY = 0f;
 
+        for (int i=0; i<quantX; i++)
+        {
+            for(int j=0; j<quantY; j++)
+            {
+                Instantiate(coin, new Vector2(posX + incX , posY + incY), Quaternion.identity);
+                incX = incX + 0.8f;
+            }
+            incX = 0f;
+            incY = incY + 0.8f;
+            
+        }
+    }
     IEnumerator SpawnRot()
     {
         while(true)
