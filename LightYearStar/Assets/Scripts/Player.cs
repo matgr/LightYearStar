@@ -29,14 +29,14 @@ public class Player : MonoBehaviour
     //Variables for the blinking effect after the spaceship taking damage
     private SpriteRenderer mySpriteRenderer;
     public float flashSpeed = 0.2f;
-    private PolygonCollider2D collPlayer;
+    //private PolygonCollider2D collPlayer;
 
 
     void Start ()
     {
         coinCount = 0;
         rb = GetComponent<Rigidbody2D>(); //Getting the reference for the rigidbody
-        collPlayer = GetComponent<PolygonCollider2D>(); 
+        //collPlayer = GetComponent<PolygonCollider2D>(); 
         mySpriteRenderer = GetComponent<SpriteRenderer>();
 
         InvokeRepeating("BasicShoot", shootStart, shootTime); //Calls the BasicShoot function that instatiate the bullets each instant

@@ -74,6 +74,8 @@ public class Spawner : MonoBehaviour {
     
     void AddBasicEnemy()
     {
+
+        //Criar vetor que armazena as 5 ultimas posições para evitar sobreposições
         Instantiate(enemy, new Vector2(Random.Range(sizeX - 0.5f, -sizeX + 0.5f), sizeY + 0.6f), Quaternion.identity);
         /*
         if((stage0)||(stage1))
